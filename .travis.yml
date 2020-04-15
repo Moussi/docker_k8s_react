@@ -12,13 +12,8 @@ script:
 
 
 after_success:
-    - docker build -t moussigl/multi-client ./client
-    - docker build -t moussigl/multi-nginx ./nginx
-    - docker build -t moussigl/multi-server ./server
-    - docker build -t moussigl/multi-worker ./worker 
-    - docker login -u "$DOCKER_USERNAME" -p $DOCKER_PASSWORD
-    - docker push moussigl/multi-client
-    - docker push moussigl/multi-nginx 
-    - docker push moussigl/multi-server
-    - docker push moussigl/multi-worker
+    provider: script
+    script: bash docker_build_push
+    on:
+        branch: master
 
