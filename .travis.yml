@@ -13,7 +13,7 @@ script:
 
 after_success:
     provider: script
-    script: bash docker_build_push
+    script: bash docker_build_push.sh
     on:
         branch: master
 
