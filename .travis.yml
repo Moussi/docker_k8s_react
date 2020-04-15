@@ -1,0 +1,24 @@
+language: generic
+sudo: required
+
+services:
+    - docker
+
+before_install:
+    - docker build -t moussigl/react-test -f ./client/Dockerfile.dev .
+
+script:
+    - docker run moussigl/react-test ng test -- --coverage
+
+
+after_success:
+    - docker build -t moussigl/multi-client ./client
+    - docker build -t moussigl/multi-nginx ./nginx
+    - docker build -t moussigl/multi-server ./server
+    - docker build -t moussigl/multi-worker ./worker 
+    - echo "$DOCKER_PWD" | docker login -u "$DOCKER_ID" --password-stdin
+    - docker push moussigl/multi-client
+    - docker push moussigl/multi-nginx 
+    - docker push moussigl/multi-server
+    - docker push moussigl/multi-worker
+
