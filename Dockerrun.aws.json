@@ -1,0 +1,37 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+    {
+        "name": "client",
+        "image":"moussigl/multi-client",
+        "hostname": "client",
+        "essential": false  
+    },
+    {
+        "name": "server",
+        "image":"moussigl/multi-server",
+        "hostname": "api",
+        "essential": false  
+    },
+    {
+        "name": "worker",
+        "image":"moussigl/multi-worker",
+        "hostname": "worker",
+        "essential": false  
+    },
+    {
+        "name": "nginx",
+        "image":"moussigl/multi-nginx",
+        "hostname": "worker",
+        "essential": true ,
+        "portMappings": [
+            {
+                "hostPort":80,
+                "conyainerPort":80
+            }
+        ],
+        "links": ["client", "server"]
+    }
+    ]
+
+}
