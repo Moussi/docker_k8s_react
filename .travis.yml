@@ -23,6 +23,7 @@ after_success:
     - docker push moussigl/multi-worker
 
 deploy:
+    edge: true
     provider: elasticbeanstalk
     region: "eu-west-3"
     app: "multi-docker"
